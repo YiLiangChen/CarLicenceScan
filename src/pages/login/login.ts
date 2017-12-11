@@ -26,10 +26,23 @@ export class LoginPage {
     if (username.value.length == 0 || password.value.length == 0) {
         alert("請輸入帳號或密碼");
     } else {
-        let userinfo: string = '用戶名：' + username.value + '密碼：' + password.value;
+        /*let userinfo: string = '用戶名：' + username.value + '密碼：' + password.value;
         alert(userinfo);
-		this.navCtrl.push(TabsPage);
+		this.navCtrl.push(TabsPage);*/
+		
+		$http({
+		  method : 'post',
+		  url : '/isLogin',
+		  data :{
+			  user : username.value,
+			  password : password.value
+		  }
+		}).then(function successCallback(response){
+		  this.navCtrl.push(TabsPage);
+		},function errorCallback(response){
+		  alert("帳號密碼其中一個有錯 想知道哪一個嗎??");
+		});
     }
   }
-
+    
 }
