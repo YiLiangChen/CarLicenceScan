@@ -25,17 +25,18 @@ export class LoginPage {
     //console.log('ionViewDidLoad LoginPage');
   }
   logIn(username: HTMLInputElement, password: HTMLInputElement) {
-	let myData : string = JSON.stringify({username : username.value,password : password.value});
+	  this.navCtrl.push(TabsPage);
+	/*let myData : string = JSON.stringify({username : username.value,password : password.value});
     if (username.value.length == 0 || password.value.length == 0) {
         alert("請輸入帳號或密碼");
     } else {
 		this.loginCheck(myData);
-    }
+    }*/
   }
   loginCheck(myData : string){
 	this.http.post('./login',myData)
 		.subscribe(data => {
-		    console.log(data.data);
+		    console.log(data/*.data*/);
 			this.navCtrl.push(TabsPage);
 		},error => {
 		    console.log(error.status);
