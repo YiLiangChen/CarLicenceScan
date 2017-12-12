@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { TabsPage } from "../tabs/tabs";
+import { TabsPage } from '../tabs/tabs';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
 
 /**
  * Generated class for the LoginPage page.
@@ -16,33 +18,34 @@ import { TabsPage } from "../tabs/tabs";
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
   }
 
   ionViewDidLoad() {
     //console.log('ionViewDidLoad LoginPage');
   }
   logIn(username: HTMLInputElement, password: HTMLInputElement) {
+	  this.navCtrl.push(TabsPage);
+	/*let myData : string = JSON.stringify({username : username.value,password : password.value});
     if (username.value.length == 0 || password.value.length == 0) {
         alert("請輸入帳號或密碼");
     } else {
-        /*let userinfo: string = '用戶名：' + username.value + '密碼：' + password.value;
-        alert(userinfo);
-		this.navCtrl.push(TabsPage);*/
-		
-		$http({
-		  method : 'post',
-		  url : '/isLogin',
-		  data :{
-			  user : username.value,
-			  password : password.value
-		  }
-		}).then(function successCallback(response){
-		  this.navCtrl.push(TabsPage);
-		},function errorCallback(response){
-		  alert("帳號密碼其中一個有錯 想知道哪一個嗎??");
+		this.loginCheck(myData);
+    }*/
+  }
+  loginCheck(myData : string){
+	this.http.post('./login',myData)
+		.subscribe(data => {
+		    console.log(data.data);
+			this.navCtrl.push(TabsPage);
+		},error => {
+		    console.log(error.status);
+			if(error.status === 404){
+				alert("我們維修中喔 請稍後再來!");
+			}else{
+				alert(error.data);
+			}
 		});
-    }
   }
     
 }
