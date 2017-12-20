@@ -5,12 +5,19 @@
 </ion-header>
 
 <ion-content padding>
+	<button ion-button full (click)="testpassing(id)">
+		<ion-icon name="camera"></ion-icon>
+		  &nbsp;testCall
+    </button>
+		<img src="../assets/imgs/0003586137_B.JPG" id="img01" />
+		<img src="http://komica.yucie.net/cat/src/1486142305067.jpg"  />
 	<ion-grid>
 		<ion-row>
 			<ion-col col-6 *ngFor="let photo of photos;let id = index">
 				<ion-card class="block">
 					<div class="Icon">
-						<ion-icon name="ios-paper-plane"  (click)="passing(id)"></ion-icon>
+						<ion-icon name="camera" (click)="testpassing(id)" ></ion-icon>
+						<ion-icon name="ios-paper-plane"  (click)="processImage(id)"></ion-icon>
 						<ion-icon name="ios-paper-outline"  (click)="deletPhoto(id)"></ion-icon>
 					</div>
 					<img [src]="photo" *ngIf="photo" />

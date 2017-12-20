@@ -9,9 +9,15 @@
 <ion-content>
   <ion-list>
     <ion-list-header>Follow us on Youtube</ion-list-header>
-    <ion-item>
-      <ion-icon name="logo-youtube" item-start></ion-icon>
-      成為YorkBao!
-    </ion-item>
+    <a ion-item href="https://www.youtube.com/user/a0930851137">
+        <ion-icon name="logo-youtube" item-start></ion-icon>
+		成為YorkBao!
+    </a>
   </ion-list>
 </ion-content>
+<ion-footer>
+	 <a href="logout.php?logout=true">Logout with href</a>
+    <button ion-button full color="danger" (click)="logout()">
+		  Logout
+    </button>
+</ion-footer>

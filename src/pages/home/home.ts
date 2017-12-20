@@ -1,24 +1,89 @@
 import { Component } from '@angular/core';
 import { NavController,AlertController,LoadingController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import * as $ from 'jquery';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+    selector: 'page-home',
+    templateUrl: 'home.html'
 })
 export class HomePage {
-  public photos : any;
-  public base64Image: string;
-  constructor(public navCtrl: NavController,private camera: Camera,public loadingCtrl: LoadingController,public alertCtrl: AlertController) {
+    public photos : any;
+    public base64Image: string;
+    constructor(public navCtrl: NavController,private camera: Camera,public loadingCtrl: LoadingController,public alertCtrl: AlertController) {
 
-  }
+    }
+	//api
+    processImage(id) {
+        var subscriptionKey = "c588514aa0c7439a940dd06e81fec312";
+        var uriBase = "https://eastasia.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Categories&language=en";
+        var params = {
+            "visualFeatures": "Categories,Description,Color",
+            "details": "",
+            "language": "en",
+        };
+        var sourceImageUrl = id;//document.getElementById("inputImage").value;
+        $.ajax({
+            url: uriBase + "?" + $.param(params),
+            beforeSend: function(xhrObj){
+                xhrObj.setRequestHeader("Content-Type","application/json");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+            },
+            type: "POST",
+            data: '{"url": ' + '"' + sourceImageUrl + '"}',
+        })
+        .done(function(data) {
+            // Show formatted JSON on webpage.
+            $("#responseTextArea").val(JSON.stringify(data, null, 2));
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            var errorString = (errorThrown === "") ? "Error. " : errorThrown + " (" + jqXHR.status + "): ";
+            errorString += (jqXHR.responseText === "") ? "" : jQuery.parseJSON(jqXHR.responseText).message;
+            alert(errorString);
+        });
+    }
+	
+	testpassing(id){
+		var subscriptionKey = "c588514aa0c7439a940dd06e81fec312";
+        var uriBase = "https://eastasia.api.cognitive.microsoft.com/vision/v1.0/analyze";
+        var params = {
+            "visualFeatures": "Categories,Description,Color",
+            "details": "",
+            "language": "en",
+        };
+		//var sourceImageUrl = 'http://komica.yucie.net/cat/src/1486142305067.jpg';
+		//var xD='#img'+id;
+		//var formData = new FormData($(xD)[0]);  
+			$.ajax({  
+				url: uriBase + "?" + $.param(params),
+				beforeSend: function(xhrObj){
+					xhrObj.setRequestHeader("Content-Type","application/json");
+					xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+				},
+				type: 'POST',  
+				//data:'{"url": ' + '"' + sourceImageUrl + '"}',
+				data:formData,
+				/*async: false,  
+				cache: false,  
+				contentType: false,  
+				processData: false */ 
+			})
+			.done(function(data) {
+				// Show formatted JSON on webpage.
+				$("#responseTextArea").val(JSON.stringify(data, null, 2));
+			})
+			.fail(function(jqXHR, textStatus, errorThrown) {
+				var errorString = (errorThrown === "") ? "Error. " : errorThrown + " (" + jqXHR.status + "): ";
+				errorString += (jqXHR.responseText === "") ? "" : jQuery.parseJSON(jqXHR.responseText).message;
+				alert(errorString);
+			});
+	}
+	
+    ngOnInit(){
+	    this.photos = [];
+    }
   
-  ngOnInit(){
-	  this.photos = [];
-  }
-  
-  deletPhoto(index){
-		
+    deletPhoto(index){
 		let confirm = this.alertCtrl.create({
 		title: '查看此相片',
 		message: 'Do you want to deletPhoto?',
@@ -38,10 +103,10 @@ export class HomePage {
 		  ]
 		});
 		confirm.present();
-  }
+    }
   
-  takePhoto(){
-	    alert('喵~把人家照得好看一點!');
+    takePhoto(){
+		this.presentLoading();
 		const options: CameraOptions = {
 		    quality: 50,
 		    destinationType: this.camera.DestinationType.DATA_URL,
@@ -60,13 +125,13 @@ export class HomePage {
 		}, (err) => {
 		 // Handle error
 		});
-  }
+    }
   
-  presentLoading() {
-    let loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 3000
-    });
-    loader.present();
-  }
+    presentLoading() {
+		let loader = this.loadingCtrl.create({
+		  content: "Please wait...",
+		  duration: 3000
+		});
+		loader.present();
+    }
 }
