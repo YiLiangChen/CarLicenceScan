@@ -7,3 +7,6 @@ ionic serve
 //使用相機
 ionic cordova plugin add cordova-plugin-camera
 npm install --save @ionic-native/camera
+//
+npm install jquery --save
+typings install dt~jquery --global --save
