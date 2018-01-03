@@ -5,12 +5,20 @@
 </ion-header>
 
 <ion-content padding>
-	<button ion-button full (click)="testpassing(id)">
-		<ion-icon name="camera"></ion-icon>
+	<button ion-button full (click)="testgoogle()">
+		<ion-icon name="logo-googleplus"></ion-icon>
 		  &nbsp;testCall
     </button>
-		<img src="../assets/imgs/0003586137_B.JPG" id="img01" />
-		<img src="http://komica.yucie.net/cat/src/1486142305067.jpg"  />
+	<button ion-button full (click)="testpassing(id)">
+		<ion-icon name="ios-paper-plane"></ion-icon>
+		  &nbsp;testCall
+    </button>
+	<form>
+	    <input type="file" id="avatar" name="avatar">
+	    <button  ion-button (click)="processImage()">上傳</button>
+	</form>
+
+		<!--<img src="../assets/imgs/0003586137_B.JPG" id="img01" />-->
 	<ion-grid>
 		<ion-row>
 			<ion-col col-6 *ngFor="let photo of photos;let id = index">

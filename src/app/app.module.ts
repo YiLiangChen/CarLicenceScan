@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { Camera } from '@ionic-native/camera';
+import { GooglePlus } from '@ionic-native/google-plus';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
@@ -11,6 +12,8 @@ import { LoginPage } from '../pages/login/login';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
+import { FileUploader, FileDropDirective, FileSelectDirective } from 'ng2-file-upload';
+import { FormsModule, FormBuilder } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,11 +22,15 @@ import { HttpModule } from '@angular/http';
     ContactPage,
     HomePage,
     TabsPage,
-	LoginPage
+	LoginPage,
+	//UploadComponent,
+    //FileDropDirective,
+    //FileSelectDirective,
   ],
   imports: [
     BrowserModule,
 	HttpModule,
+	FormsModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -33,12 +40,13 @@ import { HttpModule } from '@angular/http';
     ContactPage,
     HomePage,
     TabsPage,
-	LoginPage
+	LoginPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
 	Camera,
+	GooglePlus,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

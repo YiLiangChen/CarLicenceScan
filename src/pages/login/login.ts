@@ -25,7 +25,7 @@ export class LoginPage {
     //console.log('ionViewDidLoad LoginPage');
   }
   logIn(username: HTMLInputElement, password: HTMLInputElement) {
-	  this.navCtrl.push(TabsPage);
+	this.navCtrl.push(TabsPage);
 	/*let myData : string = JSON.stringify({username : username.value,password : password.value});
     if (username.value.length == 0 || password.value.length == 0) {
         alert("請輸入帳號或密碼");
@@ -43,7 +43,7 @@ export class LoginPage {
 			if(error.status === 404){
 				alert("我們維修中喔 請稍後再來!");
 			}else{
-				alert(error.statusText);
+				alert(error.status);
 			}
 		});
   }
